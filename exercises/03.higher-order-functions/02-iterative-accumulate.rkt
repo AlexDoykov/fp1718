@@ -9,7 +9,7 @@
   (define (helper operation null-value start end term next result)
   (if(> start end)
      result
-     (helper operation null-value (next start) end term next (operation result (term start)))
+     (helper operation null-value (next start) end term next (operation (term start) result))
      ))
   (helper operation null-value start end term next null-value)
 )

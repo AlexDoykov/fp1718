@@ -6,7 +6,11 @@
 ; някакъв едноместен предикат.
 
 (define (all-interval? start end next predicate?)
-  (void)
+  (cond
+     ((> start end) #t)
+     ((not (predicate? start)) #f)
+     (else (all-interval? (next start) end next predicate?))
+     )
 )
 
 (define tests

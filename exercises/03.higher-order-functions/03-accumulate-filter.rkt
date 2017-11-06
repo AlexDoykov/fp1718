@@ -7,12 +7,20 @@
 ; Например, искам сумата на всички прости числа в интервал.
 
 (define (accumulate-filter condition? operation null-value start end term next)
-  (void)
+  (define (helper condition? operation null-value start end term next result)
+    (cond
+          ((> start end) result)
+          ((condition? start) (helper condition? operation null-value (next start) end term next (operation (term start) result)))
+          (else (helper condition? operation null-value (next start) end term next result))
+          ))
+  (helper condition? operation null-value start end term next null-value)
 )
 
 
 (define (id x) x)
+
 (define (inc x) (+ x 1))
+
 (define (prime? n)
   (define (helper current)
     (cond ((= n 1) #f)

@@ -6,8 +6,26 @@
 ; Ако f1,f2,f3,...,fk и s1,s2,s3,...,sl са цифрите на съответните числа, а g е нашата бинарна функция, търсим резултатът от g(f1,s1) + g(f2,s2) + g(f3,s3) + ...
 ; Функцията да терминира при достигане края на едно от числата.
 
-(define (combine-numbers first second g)
-  (void)
+(define (length x)
+  (if(< x 10) 1
+     (+ 1 (length (quotient x 10))))
+  )
+
+(define (get-first-digit x)
+  (if (= (length x) 1)
+      x
+      (quotient x (expt 10 (- (length x) 1)))))
+
+(define (remove-first-digit x)
+  (if (< x 10)
+      0
+      (remainder x (expt 10 (- (length x) 1)))))
+
+(define (combine-numbers first second g operation null-value)
+  (if (or (= first 0) (= second 0))
+      null-value
+      (operation (g (get-first-digit first) (get-first-digit second)) (combine-numbers (remove-first-digit first) (remove-first-digit second) g operation null-value))
+      )
 )
 
 ; Бонус занимавка: Да параметризираме и операцията, с която комбинираме резултатите от g(fk,sl).
@@ -17,15 +35,15 @@
 (define tests
   (test-suite "Combine numbers tests"
       ; Защото (remainder k k) = 0
-      (check-equal? (combine-numbers 123 123 remainder) 0)
+      (check-equal? (combine-numbers 123 123 remainder + 0) 0)
       ; Защото (4 * 9) + (2 * 8) = 52
-      (check-equal? (combine-numbers 421384 98 *) 52)
+      (check-equal? (combine-numbers 421384 98 * + 0) 52)
       ; Защото (1 < 7) -> 1, (2 = 2) -> 0, (5 > 3) -> 0, (9 = 9) -> 0, (3 < 7) -> 1
-      (check-equal? (combine-numbers 12593 72397 (lambda (x y) (if (< x y) 1 0))) 2)
+      (check-equal? (combine-numbers 12593 72397 (lambda (x y) (if (< x y) 1 0)) + 0) 2)
       ; Като горния тест, но с по-късо второ число.
-      (check-equal? (combine-numbers 2713 98 (lambda (x y) (if (< x y) 1 0))) 2)
+      (check-equal? (combine-numbers 2713 98 (lambda (x y) (if (< x y) 1 0)) + 0) 2)
       ; Като горния тест, но с по-късо първо число.
-      (check-equal? (combine-numbers 213 91423 (lambda (x y) (if (< x y) 1 0))) 2)
+      (check-equal? (combine-numbers 213 91423 (lambda (x y) (if (< x y) 1 0)) + 0) 2)
   )
 )
 
