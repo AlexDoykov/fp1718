@@ -6,7 +6,13 @@
 ; Искаме да можем да взимаме елемента на ред i и колона j в дадена матрица
 
 (define (get-element matrix i j)
-  (void)
+  (cond
+    ((null? matrix) '())
+    ((> i 0) (get-element (cdr matrix) (- i 1) j))
+    ((list? (car matrix)) (get-element (car matrix) i j))
+    ((= j 0) (car matrix))
+    (else (get-element (cdr matrix) i (- j 1)))
+    )
 )
 
 (define tests

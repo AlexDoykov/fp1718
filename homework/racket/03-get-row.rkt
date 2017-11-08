@@ -6,7 +6,14 @@
 ; Искаме да можем да взимаме к-тия ред на дадена матрица.
 
 (define (get-row matrix k)
-  (void)
+  (if(null? matrix)
+     '()
+      (if (= k 0)
+           (if(list? (car matrix))
+              (get-row (car matrix) k)
+              (cons (car matrix) (get-row (cdr matrix) k)))
+           (get-row (cdr matrix) (- k 1)))
+       )
 )
 
 (define tests

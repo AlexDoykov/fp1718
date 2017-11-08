@@ -6,8 +6,20 @@
 ; Искаме да можем да взимаме к-тата колона на дадена матрица.
 
 (define (get-column matrix k)
-  (void)
-)
+  (define (helper matrix k cur-k)
+    (if (null? matrix)
+        '()
+        (if (list? (car matrix))
+            (cons (helper (car matrix) k 0) (helper (cdr matrix) k 0))
+            (if (= cur-k k)
+                (car matrix)
+                (helper (cdr matrix) k (+ cur-k 1))
+                )
+        )
+    )
+    )
+  (helper matrix k 0)
+  )
 
 (define tests
   (test-suite "Get row tests"

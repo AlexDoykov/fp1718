@@ -16,8 +16,17 @@
 ; В тази задача искаме запълването да се случи по редове.
 
 (define (make-matrix xs rows cols)
-  (void)
+  (define (helper xs rows cols cur-cols result)
+  (if (= rows 0)
+      '()
+      (if(= cur-cols 0)
+         (cons result (helper xs (- rows 1) cols cols '()))
+         (helper (cdr xs) rows cols (- cur-cols 1) (append result  (list (car xs))))
+      )
 )
+    )
+  (helper xs rows cols cols '())
+  )
 
 (define tests
   (test-suite "Make matrix tests"
