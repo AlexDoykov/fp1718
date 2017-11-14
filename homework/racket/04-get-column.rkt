@@ -1,7 +1,7 @@
 #lang racket
 (require rackunit)
 (require rackunit/text-ui)
-(require (only-in "./02-make-matrix.rkt" make-matrix))
+(require (only-in "02-make-matrix.rkt" make-matrix))
 
 ; Искаме да можем да взимаме к-тата колона на дадена матрица.
 

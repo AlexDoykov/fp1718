@@ -1,10 +1,11 @@
 #lang racket
 (require rackunit)
 (require rackunit/text-ui)
- 
+(require "04-fold-right.rkt")
 ; Искаме да намерим най-малкото число в списък, използвайки fold-left или fold-right
 (define (minimum xs)
-  (void))
+  (if
+  (((fold-right + 0 xs)))
 
 (define tests
  (test-suite "Min tests"

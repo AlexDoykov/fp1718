@@ -8,12 +8,12 @@
 
 ; Дефинирайте filter въз основа на fold-right
 (define (filter p? xs)
-  (void)
+  (fold-right p? 1 xs)
 )
 
 ; Дефинирайте map въз основа на fold-left
 (define (map f xs)
-  (void)
+  (fold-left f '() xs)
 )
 
 (display "ACTUAL TESTS-----------------------------------------------------------\n")

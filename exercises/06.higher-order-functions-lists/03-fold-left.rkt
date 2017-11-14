@@ -2,19 +2,25 @@
 (require rackunit)
 (require rackunit/text-ui)
 (provide fold-left)
- 
+(require racket/trace)
+
 ; Искаме да комбинираме всички елементи на списък в една резултатна стойност
 ; Като accumulate, само че вместо числов интервал, работим със списък
 ; Хубаво е да направим този fold итеративно, като натрупваме в null-value
 
 (define (fold-left op null-value xs)
-  (void)
+  (if (null? xs)
+      null-value
+      (fold-left op (op null-value (car xs)) (cdr xs))
+      )
 )
 
 ; При добро желание, може да го накараме да прави рекурсивен процес:
 (define (fold-left-rec op null-value xs)
-  (void)
-)
+  (if (null? xs)
+      null-value
+      (op (fold-left op null-value (cdr xs)) (car xs))
+      ))
 
 (define fold-left-tests
   (test-suite "Fold-left tests"

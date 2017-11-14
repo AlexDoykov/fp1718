@@ -6,8 +6,10 @@
 ; Същото като fold-left, само че "свиването" на рекурсията да започва от дясно
 ; Тук е малко по-интуитивно нещата да се случат с рекурсивен процес
 (define (fold-right op null-value xs)
-  (void)
-)
+  (if (null? xs)
+      null-value
+      (op (car xs) (fold-right op null-value (cdr xs)))
+      ))
 
 ; При добро желание, разбира се, може да се случи и с итеративен:
 (define (fold-right-iter op null-value xs)

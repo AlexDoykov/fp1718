@@ -10,7 +10,11 @@
 ; Тоест: (filter odd? '(1 2 3)) -> '(1 3)
 
 (define (filter p? xs)
-  (void)
+  (cond
+    ((null? xs) '())
+    ((p? (car xs)) (cons (car xs) (filter p? (cdr xs))))
+    (else (filter p? (cdr xs)))
+    )
 )
 
 (define filter-tests

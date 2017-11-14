@@ -25,12 +25,11 @@
 ; Правим задачата на стъпки:
 
 ; after-2010 трябва да е списък с всички филми, излезли след 2010г.
-(define after-2010 (void))
+(define after-2010 (filter (lambda (L) (> (caddr L) 2010)) movies))
 
 ; ratings трябва да е списък с рейтингите на всички филми, излезли след 2010г.
-(define ratings (void))
+(define ratings (map (lambda(xs) (cadr xs)) movies))
 
 ; average-rating-after-2010 - среден рейтинг на филмите, излезли след 2010г.
-(define average-rating-after-2010 (void))
-
+(define average-rating-after-2010 (/  (foldr + 0 ratings) (length ratings)))
 
