@@ -15,6 +15,8 @@
 
 ; В тази задача искаме запълването да се случи по редове.
 
+
+; cool. Опитай я с take и drop, ако ти се занимава.
 (define (make-matrix xs rows cols)
   (define (helper xs rows cols cur-cols result)
   (if (= rows 0)
@@ -27,6 +29,8 @@
     )
   (helper xs rows cols cols '())
   )
+
+(make-matrix2 (range 1 7) 2 3)
 
 (define tests
   (test-suite "Make matrix tests"

@@ -3,7 +3,10 @@
 (require rackunit/text-ui)
 (require (only-in "02-make-matrix.rkt" make-matrix))
 
-; Искаме да можем да взимаме к-тата колона на дадена матрица.
+; Искаме да можем да взимаме к-тата колона на дадена матрица
+; Същото като get-row.
+; Изглежда сложно.
+; Наскоро учихме едни полезни функции за работа със списъци.
 
 (define (get-column matrix k)
   (define (helper matrix k cur-k)

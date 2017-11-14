@@ -20,6 +20,7 @@
   (helper matrix k 0)
   )
 
+; Само вмятам: на това му казват dot product
 (define (pow-row-column row column)
   (if (or (null? column) (null? row))
       0

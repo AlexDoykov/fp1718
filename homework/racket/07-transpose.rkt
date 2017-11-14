@@ -21,6 +21,7 @@
   (helper matrix k 0)
   )
 
+; cool. Опитай да я направиш с някоя от трите нови функции за списъци, които правихме.
 (define (transpose m)
   (define (helper m index)
     (if (= index (length (car m)))
