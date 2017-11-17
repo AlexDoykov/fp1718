@@ -30,7 +30,17 @@
   (helper xs rows cols cols '())
   )
 
+(define (make-matrix2 xs rows cols)
+  (cond
+    ((= rows 0) '())
+    ((>= (length xs) cols) (cons (take xs cols) (make-matrix2 (drop xs cols) (- rows 1) cols)))
+    (else xs) ;тоя еlse си седи там в случай, че числата не стигнат за матрицата просто да не връща някакъв void
+      )
+  )
+
 (make-matrix2 (range 1 7) 2 3)
+(make-matrix2 (range 1 101) 4 5)
+(make-matrix2 (range 1 7) 6 1)
 
 (define tests
   (test-suite "Make matrix tests"

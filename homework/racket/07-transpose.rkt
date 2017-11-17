@@ -2,34 +2,14 @@
 (require rackunit)
 (require rackunit/text-ui)
 (require "02-make-matrix.rkt")
-
+(require "./04-get-column.rkt")
 ; Търсим транспонираната матрица на дадена такава
-
-(define (get-column matrix k)
-  (define (helper matrix k cur-k)
-    (if (null? matrix)
-        '()
-        (if (list? (car matrix))
-            (cons (helper (car matrix) k 0) (helper (cdr matrix) k 0))
-            (if (= cur-k k)
-                (car matrix)
-                (helper (cdr matrix) k (+ cur-k 1))
-                )
-        )
-    )
-    )
-  (helper matrix k 0)
-  )
 
 ; cool. Опитай да я направиш с някоя от трите нови функции за списъци, които правихме.
 (define (transpose m)
-  (define (helper m index)
-    (if (= index (length (car m)))
-        '()
-        (cons (get-column m index) (helper m (+ index 1)))
-        )
-    )
-  (helper m 0)
+  (if (null? (car m))
+      '()
+      (cons (map car m) (transpose (map cdr m))))
   )
 
 (define tests

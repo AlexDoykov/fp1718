@@ -2,26 +2,21 @@
 (require rackunit)
 (require rackunit/text-ui)
 (require (only-in "02-make-matrix.rkt" make-matrix))
-
+(provide get-column)
 ; Искаме да можем да взимаме к-тата колона на дадена матрица
 ; Същото като get-row.
 ; Изглежда сложно.
 ; Наскоро учихме едни полезни функции за работа със списъци.
 
+(define (nth x n)
+  (if (= n 0)
+      (car x)
+      (nth (cdr x) (- n 1))
+     )
+  )
+
 (define (get-column matrix k)
-  (define (helper matrix k cur-k)
-    (if (null? matrix)
-        '()
-        (if (list? (car matrix))
-            (cons (helper (car matrix) k 0) (helper (cdr matrix) k 0))
-            (if (= cur-k k)
-                (car matrix)
-                (helper (cdr matrix) k (+ cur-k 1))
-                )
-        )
-    )
-    )
-  (helper matrix k 0)
+  (map (lambda(x) (nth x k)) matrix)
   )
 
 (define tests

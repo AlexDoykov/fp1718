@@ -13,12 +13,9 @@
   (if(null? matrix)
      '()
       (if (= k 0)
-           (if(list? (car matrix))
-              (get-row (car matrix) k)
-              (cons (car matrix) (get-row (cdr matrix) k)))
-           (get-row (cdr matrix) (- k 1)))
+           (car matrix)
+           (get-row (cdr matrix) (- k 1))))
        )
-)
 
 (define tests
   (test-suite "Get row tests"
