@@ -1,10 +1,33 @@
 #lang racket
 (require rackunit)
 (require rackunit/text-ui)
- 
+
+ (define (take-while pred? lst)
+   (define (helper lst result)
+   (cond
+     ((null? lst) '())
+     ((= (length lst) 1) (list (car lst)))
+     ((pred? (car lst) (car (cdr lst))) (append result (list (car lst))))
+     (else (helper (cdr lst) (append result (list (car lst)))))
+   ))
+   (helper lst '())
+   )
+
+ (define (drop-while pred? list)
+   (cond
+     ( (or (null? list) (= (length list) 1)) '())
+     ((pred? (car list) (car (cdr list))) (cdr list))
+     (else (drop-while (cdr list)))
+   ))
+
+
+
 ; Искаме да сортираме списък от числа по метода quicksort
 (define (quicksort xs)
-  (void))
+  (if (null? xs)
+      '()
+      (append (quicksort (filter (lambda (x) (>= (car xs) x)) (cdr xs) )) (list (car xs)) (quicksort (filter (lambda (x) (< (car xs) x)) (cdr xs) )) )
+      ))
 
 (define tests
   (test-suite "Generic sort tests"

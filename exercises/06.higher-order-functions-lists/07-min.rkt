@@ -3,9 +3,28 @@
 (require rackunit/text-ui)
 (require "04-fold-right.rkt")
 ; Искаме да намерим най-малкото число в списък, използвайки fold-left или fold-right
+
+(define (test xs index)
+  (fold-right + 0 (remove index xs)))
+
+
+(define (get-nth index xs)
+  (if (= index 1)
+      (car xs)
+      (get-nth (- index 1) (cdr xs))
+      ))
+
 (define (minimum xs)
-  (if
-  (((fold-right + 0 xs)))
+  (define (helper min xs index sum)
+    sum
+    (cond
+      ((> index (length xs)) min)
+      ((> (fold-right + 0 (remove (get-nth index xs) xs)) sum) (helper (get-nth index xs) xs (+ index 1) (fold-right + 0 (remove (get-nth index xs) xs))))
+      (else (helper min xs (+ index 1) sum))
+      )
+    )
+  (helper (car xs) xs 2 (fold-right + 0 (remove (car xs) xs)))
+  )
 
 (define tests
  (test-suite "Min tests"

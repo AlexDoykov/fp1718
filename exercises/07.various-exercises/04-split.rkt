@@ -6,7 +6,13 @@
 ; Дадена е дължината, която искаме да има първия - n.
 
 (define (split n xs)
-  (void))
+  (define (helper n xs result)
+  (cond
+    ((= n 0) (cons result (cons xs '())))
+    (else (helper (- n 1) (cdr xs) (append result (list (car xs)))))
+  ))
+  (helper n xs '())
+  )
 
 (define tests
   (test-suite "Split"
