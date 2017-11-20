@@ -6,7 +6,7 @@
     ((op? (f a) (g a)) #t)
     (else (find-other op? f g (+ a 1) b))
   ))
-  
+
 
 (define (mixed? f g a b)
   (cond
@@ -18,7 +18,7 @@
   )
 
 
-
+;=========================================
 
 
 (define (member? x xs)
@@ -56,17 +56,33 @@
         (else (checkMatrix? (cdr m) k))
         ))
 
-(define  (longestAscending­ l)
-  (define (helper result l)
-    (take (lambda (x) (< x (car l)) #t) l))
-  (helper (car l) (cdr l))
+ (define (take-while lst)
+   (define (helper lst result)
+   (cond
+     ((null? lst) '())
+     ((= (length lst) 1) (list (car lst)))
+     ((> (car lst) (car (cdr lst))) (append result (list (car lst))))
+     (else (helper (cdr lst) (append result (list (car lst)))))
+   ))
+   (helper lst '())
+   )
+
+ (define (drop-while list)
+   (cond
+     ( (or (null? list) (= (length list) 1)) '())
+     ((> (car list) (car (cdr list))) (cdr list))
+     (else (drop-while (cdr list)))
+   ))
+
+(define (longest-ascending­ xs)
+  (define (helper result xs)
+  (cond
+    ((null? xs) result)
+    ((<= (length result) (length (take-while xs))) (helper (take-while xs) (drop-while xs)))
+    (else (helper result (drop-while xs)))
+    ))
+  (helper (list (car xs)) (cdr xs))
   )
-
-
-
-
-
-
 
 
 

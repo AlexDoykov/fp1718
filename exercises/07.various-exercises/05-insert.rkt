@@ -6,7 +6,14 @@
 ; Индексираме от 0.
 
 (define (insert x index xs)
-  (void))
+  (define (helper x index xs result)
+    (cond
+      ((null? xs) (append result (list x)))
+      ((= index 0) (append (append result (list x))  xs))
+      (else (helper x (- index 1) (cdr xs) (append result (list (car xs)))))
+    ))
+  (helper x index xs '())
+  )
 
 (define tests
  (test-suite "random-tests"
