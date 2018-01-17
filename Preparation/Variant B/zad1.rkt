@@ -1,4 +1,5 @@
 #lang racket
+(provide member?)
 
 (define (find-other op? f g a b)
   (cond

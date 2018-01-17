@@ -14,41 +14,58 @@ data Bst key value = Empty | Node (key,value) (Bst key value) (Bst key value) de
 -- Тъй като търсеният ключ може да не съществува в дървото,
 -- резултатът на функцията е Maybe b
 search :: (Ord a) => a -> Bst a b -> Maybe b 
--- TODO:
-
--- Искаме да вмъкнем дадена двойка (ключ, стойност) в дадено двоично дърво
+search _ Empty = Nothing
+search x (Node pair t1 t2)
+    | fst pair == x = (Just (snd pair))
+    | fst pair < x = search x t2
+    | otherwise = search x t1
+--Искаме да вмъкнем дадена двойка (ключ, стойност) в дадено двоично дърво
 -- и да върнем новото дърво като резултат
 insert :: (Ord a) => (a,b) -> Bst a b -> Bst a b
--- TODO:
-
+insert x Empty = (Node x Empty Empty)
+insert x (Node root left right)
+    | fst root > fst x = Node root (insert x left) right
+    | fst root < fst x = Node root left (insert x right)
+    | fst root == fst x = Node root left right
 -- Обхождаме дадено двоично дърво и трупаме в резултатен списък
 inOrder :: (Ord a) => Bst a b -> [(a,b)]
--- TODO:
-
+inOrder Empty = []
+inOrder (Node root left right) = ((inOrder left)++[root])++(inOrder right)
 -- Обхождаме дадено двоично дърво и трупаме в резултатен списък
 preOrder :: (Ord a) => Bst a b -> [(a,b)]
--- TODO:
+preOrder Empty = []
+preOrder (Node root left right) = root : (preOrder left) ++ (preOrder right)
 
 -- Обхождаме дадено двоично дърво и трупаме в резултатен списък
-postOrder :: (Ord a) => Bst a b -> [(a,b)]
--- TODO:
+traverse' :: (Ord a) => Bst a b -> [(a,b)]
+traverse' Empty = []
+traverse' (Node root left right) = (traverse' right) ++ (traverse' left) ++ [root]
 
 -- Като допълнителна, но незадължителна задача, може да реализирате изтриване
--- на връх с даден ключ от дадено дърво
+-- на връх с даден ключ от дадено дърво-}
 
-example :: Bst Int String
-example = Node (30,"Thirty")
-              (Node (10,"Ten")
-                    Empty
-                    Empty)
-              (Node (40, "Fourty")
-                  (Node (35, "Thirty-five")
-                        Empty
-                        Empty)
-                  (Node (70, "Seventy")
-                        Empty
-                        Empty))
+build :: (Ord a) => [(a, b)] -> Bst a b
+build xs = foldr insert Empty xs
 
+
+
+
+example1 :: Bst Int String
+example1 = Node (5,"A") 
+            (Node (3,"A") 
+                (Node (1,"A") 
+                  Empty 
+                  Empty) 
+                (Node (4,"A") 
+                    Empty 
+                    Empty)) 
+            (Node (7,"A") 
+                (Node (6,"A") 
+                    Empty 
+                    Empty) 
+                (Node (8,"A") 
+                    Empty 
+                    Empty))
 
 
 
