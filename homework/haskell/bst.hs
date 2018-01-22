@@ -36,16 +36,9 @@ preOrder :: (Ord a) => Bst a b -> [(a,b)]
 preOrder Empty = []
 preOrder (Node root left right) = root : (preOrder left) ++ (preOrder right)
 
--- Обхождаме дадено двоично дърво и трупаме в резултатен списък
-traverse' :: (Ord a) => Bst a b -> [(a,b)]
-traverse' Empty = []
-traverse' (Node root left right) = (traverse' right) ++ (traverse' left) ++ [root]
-
+-- Обхождаме дадено двоично дърво и трупаме в резултатен списък	
 -- Като допълнителна, но незадължителна задача, може да реализирате изтриване
 -- на връх с даден ключ от дадено дърво-}
-
-build :: (Ord a) => [(a, b)] -> Bst a b
-build xs = foldr insert Empty xs
 
 
 
